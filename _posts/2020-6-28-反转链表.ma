@@ -3,6 +3,7 @@
 输入: 1->2->3->4->5->NULL <br>
 输出: 5->4->3->2->1->NULL <br>
 题解分析：<br>
+###方法一：递归
 假设列表为:N1-->...-->Nk-1-->Nk-->Nk+1...-->Nm-->null <br>
 假设从节点 Nk+1到Nm已经被反转，而我们正处于Nk <br>
 N1-->...-->Nk-1-->Nk-->Nk+1<--...<--Nm <br>
@@ -20,3 +21,18 @@ public ListNode reverseList(ListNode head) { <br>
     //返回新头节点<br>
     return p; <br>
 } <br>
+###方法二：迭代
+在遍历列表时，将当前节点(curr)的 next 指针改为指向前一个元素。由于节点没有引用其上一个节点，因此必须事先存储其前一个元素(prev)。<br>
+在更改引用之前，还需要另一个指针来存储下一个节点(nextTemp)。不要忘记在最后返回新的头引用(prev)！<br>
+Java代码实现:<br>
+public ListNode reverseList(ListNode head) { <br>
+    ListNode prev = null;<br>
+    ListNode curr = head;<br>
+    while (curr != null) {<br>
+        ListNode nextTemp = curr.next;<br>
+        curr.next = prev;<br>
+        prev = curr;<br>
+        curr = nextTemp;<br>
+    }<br>
+    return prev;<br>
+}<br>
